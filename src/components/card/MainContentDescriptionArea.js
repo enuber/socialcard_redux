@@ -1,27 +1,33 @@
 import './MainContentDescriptionArea.css';
 import React from 'react';
+import { connect } from 'react-redux';
 
 const MainContentDescriptionArea = props => {
 
     const showDesc = () => {
-        if (!props.product) {
+        const {product, productDesc, webAddress} = props.socialCardArr[props.id];
+        if (!product) {
             return null;
         } else {
             return (
                 <div className="descContainer">
-                    <h2>{props.product}</h2>
-                    <p>{props.productDesc}</p>
-                    <p className="makeLightGrey">{props.webAddress}</p>
+                    <h2>{product}</h2>
+                    <p>{productDesc}</p>
+                    <p className="makeLightGrey">{webAddress}</p>
                 </div>
             )
         }
-    }
+    };
 
     return (
         <div>
             {showDesc()}
         </div>
     )
-}
+};
 
-export default MainContentDescriptionArea;
+const mapStateToProps = state => {
+    return { socialCardArr: state.socialCardArr}
+};
+
+export default connect(mapStateToProps)(MainContentDescriptionArea);

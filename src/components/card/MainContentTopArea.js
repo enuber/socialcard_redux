@@ -1,5 +1,6 @@
 import './MainContentTopArea.css';
 import React from 'react';
+import { connect } from 'react-redux';
 
 const MainContentTopArea = props => {
 
@@ -34,10 +35,10 @@ const MainContentTopArea = props => {
     }
 
     const showTopContent = () => {
-        if (!props.avatar) {
+        const {avatar, color, firstName, lastName, personalPic, product} = props.socialCardArr[props.id];
+        if (!avatar) {
             return null;
         } else {
-            const {color} = props;
             let correctColor = checkColor(color);
             return (
                 <div style={{
@@ -45,15 +46,15 @@ const MainContentTopArea = props => {
                     borderRadius: '10px 10px 0 0'
                 }}>
                     <div className="topAreaContainer">
-                        <img className="avatarMainContent" src={props.avatar} alt="" />
-                        <h1>{props.product}</h1>
+                        <img className="avatarMainContent" src={avatar} alt="" />
+                        <h1>{product}</h1>
                         <div className="nameContainer">
                             <span className="nameOfPerson"
                                   style={{color: `${correctColor}`
-                            }}>
-                                {`${props.firstName} ${props.lastName}`}
+                                  }}>
+                                {`${firstName} ${lastName}`}
                             </span>
-                            <img className="personalPic" src={props.personalPic} alt="" />
+                            <img className="personalPic" src={personalPic} alt="" />
                         </div>
                     </div>
                 </div>
@@ -67,4 +68,8 @@ const MainContentTopArea = props => {
     )
 }
 
-export default MainContentTopArea;
+const mapStateToProps = state => {
+    return { socialCardArr: state.socialCardArr}
+};
+
+export default connect(mapStateToProps)(MainContentTopArea);
