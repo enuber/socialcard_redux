@@ -1,6 +1,8 @@
 import { GET_DATA } from '../actions/types';
+import { combineReducers } from 'redux';
 
-export default (state = [], action) => {
+
+const getDataReducer = (state = [], action) => {
     switch(action.type) {
         case GET_DATA:
             return action.payload;
@@ -8,3 +10,7 @@ export default (state = [], action) => {
             return state;
     }
 };
+
+export default combineReducers({
+    socialCardArr : getDataReducer
+});
